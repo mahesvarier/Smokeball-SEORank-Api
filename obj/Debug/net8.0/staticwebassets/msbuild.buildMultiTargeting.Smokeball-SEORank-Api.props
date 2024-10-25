@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../build/Smokeball-SEORank-Api.props" />
+</Project>

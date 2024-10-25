@@ -1,0 +1,6 @@
+@Smokeball_SEORank_Api_HostAddress = http://localhost:5224
+
+GET {{Smokeball_SEORank_Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
