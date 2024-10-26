@@ -30,13 +30,13 @@ namespace Smokeball_SEORank_Api.Services
                 var response = await _httpClient.GetStringAsync(searchUrl);
                 Console.WriteLine($"Response: {response}");
 
-                var regex = new Regex(@"<a href=""/url\?q=([^&""]+)", RegexOptions.IgnoreCase);
+                var regex = new Regex(@"<a href=""/url\?q=https:\/\/([^&""]+)", RegexOptions.IgnoreCase);
                 var matches = regex.Matches(response);
 
                 for (int i = 0; i < matches.Count; i++)
                 {
                     var matchUrl = matches[i].Groups[1].Value;
-                    if (!matchUrl.Contains("google.com", StringComparison.OrdinalIgnoreCase)){
+                    if (!matchUrl.Contains("google.com", StringComparison.OrdinalIgnoreCase) && totalLinksChecked < maxResults){
                         totalLinksChecked++;
                         Console.WriteLine($"Checking link {totalLinksChecked}: {matchUrl}");
 

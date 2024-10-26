@@ -43,10 +43,22 @@ app.UseHttpsRedirection();
 
 app.MapGet("/", () => "Hello World!");
 
-app.MapPost("/seo-rankings", async (ISeoRankService searchService, SearchRequest request) =>
+app.MapPost("/seo-rankings", async (HttpContext httpContext,ISeoRankService searchService, SearchRequest request) =>
 {
-    var positions = await searchService.PerformSeoRankSearch(request.Keywords, request.Url);
-    return Results.Ok(positions);
+    try{
+        var positions = await searchService.PerformSeoRankSearch(request.Keywords, request.Url);
+        return Results.Ok(positions);
+    }
+    catch(HttpRequestException ex) when (ex.StatusCode == System.Net.HttpStatusCode.TooManyRequests)
+    {
+        httpContext.Response.StatusCode = (int)System.Net.HttpStatusCode.TooManyRequests;
+        return Results.Json(new ErrorResponse { ErrorCode = "TOO_MANY_REQUESTS" });
+    }
+    catch(Exception ex)
+    {
+        httpContext.Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+        return Results.Json(new ErrorResponse { ErrorCode = "INTERNAL_SERVER_ERROR" });
+    }
 });
 
 app.Run();
