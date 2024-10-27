@@ -22,7 +22,7 @@ namespace Smokeball_SEORank_Api.Services
             int totalLinksChecked = 0;
             int start = 0;
 
-            while (totalLinksChecked < maxResults)
+            while (totalLinksChecked < maxResults && start < maxResults)
             {
                 var searchUrl = $"{_searchEngineSettings.GoogleBaseUrl}?q={Uri.EscapeDataString(keywords)}&start={start}";
                 Console.WriteLine($"Searching URL: {searchUrl}");
