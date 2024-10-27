@@ -25,10 +25,8 @@ namespace Smokeball_SEORank_Api.Services
             while (totalLinksChecked < maxResults && start < maxResults)
             {
                 var searchUrl = $"{_searchEngineSettings.GoogleBaseUrl}?q={Uri.EscapeDataString(keywords)}&start={start}";
-                Console.WriteLine($"Searching URL: {searchUrl}");
 
                 var response = await _httpClient.GetStringAsync(searchUrl);
-                Console.WriteLine($"Response: {response}");
 
                 var regex = new Regex(@"<a href=""/url\?q=https:\/\/([^&""]+)", RegexOptions.IgnoreCase);
                 var matches = regex.Matches(response);
@@ -38,7 +36,6 @@ namespace Smokeball_SEORank_Api.Services
                     var matchUrl = matches[i].Groups[1].Value;
                     if (!matchUrl.Contains("google.com", StringComparison.OrdinalIgnoreCase) && totalLinksChecked < maxResults){
                         totalLinksChecked++;
-                        Console.WriteLine($"Checking link {totalLinksChecked}: {matchUrl}");
 
                         // Cheking if the URL match
                         if (matchUrl.Contains(url, StringComparison.OrdinalIgnoreCase))
