@@ -28,6 +28,7 @@ To run the tests, use the following command:
 cd Smokeball-SEOrank-Api
 dotnet test
 ```
+### Run [smokeball-seorank-web](https://github.com/mahesvarier/smokeball-seorank-web) along side this project.
 
 # Project Structure
 ## Program.cs
