@@ -30,7 +30,7 @@ builder.Services.AddCors(options =>
         }
         else
         {
-            policyBuilder.WithOrigins("https://smokeball-serorank-web.azurewebsites.net/")
+            policyBuilder.WithOrigins("https://smokeball-serorank-web.azurewebsites.net")
                          .AllowAnyHeader()
                          .AllowAnyMethod();
         }
