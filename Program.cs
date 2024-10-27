@@ -20,11 +20,20 @@ builder.Services.AddScoped<ISeoRankService, SeoRankService>();
 
 builder.Services.AddCors(options =>
 {
-    options.AddDefaultPolicy(builder =>
+    options.AddDefaultPolicy(policyBuilder =>
     {
-        builder.WithOrigins("http://localhost:3000")
-               .AllowAnyHeader()
-               .AllowAnyMethod();
+        if (builder.Environment.IsDevelopment())
+        {
+            policyBuilder.WithOrigins("http://localhost:3000")
+                         .AllowAnyHeader()
+                         .AllowAnyMethod();
+        }
+        else
+        {
+            policyBuilder.WithOrigins("https://smokeball-serorank-web.azurewebsites.net/")
+                         .AllowAnyHeader()
+                         .AllowAnyMethod();
+        }
     });
 });
 
